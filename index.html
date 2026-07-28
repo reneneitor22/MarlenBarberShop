@@ -67,14 +67,6 @@
   .nav-links{display:flex;gap:28px;font-size:.85rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;}
   .nav-links a{opacity:.85;transition:opacity .2s, color .2s;}
   .nav-links a:hover{opacity:1;color:var(--gold);}
-  .nav-cta{
-    width:44px;height:44px;border-radius:50%;
-    background:#25D366;
-    display:flex;align-items:center;justify-content:center;
-    box-shadow:0 4px 16px rgba(37,211,102,.35);
-    flex-shrink:0;
-  }
-  .nav-cta svg{width:24px;height:24px;}
   .burger{display:none;background:none;border:none;color:var(--cream);font-size:1.6rem;cursor:pointer;}
 
   @media(max-width:760px){
@@ -270,8 +262,10 @@
     position:fixed;bottom:22px;right:22px;z-index:900;
     width:60px;height:60px;border-radius:50%;
     background:#25D366;display:flex;align-items:center;justify-content:center;
-    font-size:1.8rem;box-shadow:0 8px 24px rgba(0,0,0,.4);
+    box-shadow:0 8px 24px rgba(0,0,0,.4);
     animation:pulse 2.4s infinite;
+  }
+  .float-wa svg{width:32px;height:32px;
   }
   @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,.5)}70%{box-shadow:0 0 0 16px rgba(37,211,102,0)}100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}}
 </style>
@@ -291,9 +285,6 @@
       <a href="#reservar">Reservar</a>
       <a href="#ubicacion">Ubicación</a>
     </div>
-    <a href="https://wa.me/529585856218" target="_blank" rel="noopener" class="nav-cta" aria-label="WhatsApp">
-      <svg viewBox="0 0 32 32" fill="#fff" xmlns="http://www.w3.org/2000/svg"><path d="M16.004 3C9.376 3 4 8.373 4 15c0 2.34.65 4.53 1.78 6.4L3 29l7.79-2.04A12.9 12.9 0 0 0 16 27c6.63 0 12-5.37 12-12S22.63 3 16.004 3Zm0 21.9c-1.98 0-3.85-.53-5.46-1.46l-.39-.23-4.63 1.21 1.24-4.51-.25-.46A9.9 9.9 0 0 1 5.1 15c0-5.46 4.44-9.9 9.9-9.9 5.46 0 9.9 4.44 9.9 9.9 0 5.46-4.44 9.9-9.9 9.9Zm5.44-7.41c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.24-.46-2.36-1.46-.87-.78-1.46-1.74-1.63-2.04-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.88 1.21 3.08c.15.2 2.09 3.2 5.08 4.48.71.31 1.26.49 1.69.63.71.23 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35Z"/></svg>
-    </a>
     <button class="burger" id="burgerBtn" aria-label="Menú">☰</button>
   </nav>
 </header>
@@ -457,7 +448,9 @@
   Del Mar Barber Studio © 2026 — Marlén Solís · Crucecita, Huatulco
 </footer>
 
-<a class="float-wa" href="https://wa.me/529585856218?text=Hola%20Marl%C3%A9n!%20Quiero%20informaci%C3%B3n%20de%20una%20cita" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
+<a class="float-wa" href="https://wa.me/529585856218?text=Hola%20Marl%C3%A9n!%20Quiero%20informaci%C3%B3n%20de%20una%20cita" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg viewBox="0 0 32 32" fill="#fff" xmlns="http://www.w3.org/2000/svg"><path d="M16.004 3C9.376 3 4 8.373 4 15c0 2.34.65 4.53 1.78 6.4L3 29l7.79-2.04A12.9 12.9 0 0 0 16 27c6.63 0 12-5.37 12-12S22.63 3 16.004 3Zm0 21.9c-1.98 0-3.85-.53-5.46-1.46l-.39-.23-4.63 1.21 1.24-4.51-.25-.46A9.9 9.9 0 0 1 5.1 15c0-5.46 4.44-9.9 9.9-9.9 5.46 0 9.9 4.44 9.9 9.9 0 5.46-4.44 9.9-9.9 9.9Zm5.44-7.41c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.24-.46-2.36-1.46-.87-.78-1.46-1.74-1.63-2.04-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.88 1.21 3.08c.15.2 2.09 3.2 5.08 4.48.71.31 1.26.49 1.69.63.71.23 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35Z"/></svg>
+</a>
 
 <script>
   // Nav mobile toggle
