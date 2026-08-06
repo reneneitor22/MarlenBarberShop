@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0a0a0a">
+<meta name="robots" content="noindex,nofollow">
+<title>Panel · Del Mar Barber Studio</title>
+<link rel="icon" href="img/logo.jpg">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#0a0a0a;--panel:#141312;--panel-2:#1b1917;--gold:#d4af37;--gold-2:#f4d874;
+    --cream:#f3ead9;--line:rgba(255,255,255,.09);--ok:#3ecf8e;--warn:#f0a33a;--bad:#ff6b70;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+  body{background:var(--black);color:var(--cream);font-family:'Inter',sans-serif;font-size:15px;padding-bottom:40px;}
+  h1,h2,h3{font-family:'Bebas Neue',sans-serif;letter-spacing:.04em;line-height:1;}
+  a{color:var(--gold);text-decoration:none;}
+  .wrap{max-width:900px;margin:0 auto;padding:0 14px;}
+
+  header{position:sticky;top:0;z-index:50;background:var(--black);border-bottom:1px solid var(--line);}
+  .hrow{display:flex;align-items:center;gap:12px;padding:12px 14px;max-width:900px;margin:0 auto;}
+  .hrow img{width:38px;height:38px;border-radius:50%;border:2px solid var(--gold);object-fit:cover;}
+  .hrow h1{font-size:1.25rem;}
+  .hrow .sp{margin-left:auto;}
+  .tabs{display:flex;gap:4px;overflow-x:auto;padding:0 10px 10px;max-width:900px;margin:0 auto;scrollbar-width:none;}
+  .tabs::-webkit-scrollbar{display:none;}
+  .tab{flex:none;padding:9px 15px;border-radius:9px;border:1px solid var(--line);background:transparent;color:var(--cream);
+       font-size:.82rem;font-weight:700;cursor:pointer;white-space:nowrap;font-family:'Inter';}
+  .tab.on{background:var(--gold);color:#1a1200;border-color:var(--gold);}
+
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px;}
+  .card h2{font-size:1.3rem;margin-bottom:4px;text-transform:uppercase;}
+  .card .sub{font-size:.8rem;color:rgba(243,234,217,.45);margin-bottom:14px;line-height:1.5;}
+
+  button,input,select,textarea{font-family:'Inter',sans-serif;font-size:15px;}
+  input,select,textarea{
+    width:100%;padding:11px 12px;border-radius:9px;border:1px solid var(--line);
+    background:rgba(0,0,0,.4);color:var(--cream);-webkit-appearance:none;appearance:none;min-height:44px;
+  }
+  input[type=checkbox]{width:auto;min-height:0;}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:rgba(212,175,55,.6);}
+  select{background-image:linear-gradient(45deg,transparent 50%,var(--gold) 50%),linear-gradient(135deg,var(--gold) 50%,transparent 50%);
+         background-position:calc(100% - 18px) 20px,calc(100% - 13px) 20px;background-size:5px 5px;background-repeat:no-repeat;padding-right:34px;}
+  label{display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;font-weight:700;color:rgba(243,234,217,.55);margin-bottom:6px;}
+  .f{margin-bottom:12px;}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
+  @media(max-width:520px){.row3{grid-template-columns:1fr 1fr;}}
+
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:12px 18px;border-radius:9px;
+       font-weight:800;font-size:.8rem;text-transform:uppercase;letter-spacing:.04em;cursor:pointer;border:none;min-height:44px;}
+  .btn-gold{background:linear-gradient(135deg,var(--gold-2),var(--gold) 60%,#a9791f);color:#1a1200;}
+  .btn-ghost{background:transparent;border:1px solid var(--line);color:var(--cream);}
+  .btn-ok{background:rgba(62,207,142,.15);border:1px solid rgba(62,207,142,.5);color:var(--ok);}
+  .btn-bad{background:rgba(255,107,112,.12);border:1px solid rgba(255,107,112,.45);color:var(--bad);}
+  .btn-wa{background:#25D366;color:#04240f;}
+  .btn-sm{padding:8px 12px;font-size:.72rem;min-height:36px;}
+  .btn[disabled]{opacity:.4;pointer-events:none;}
+  .btn-full{width:100%;}
+
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px;}
+  @media(max-width:520px){.stats{grid-template-columns:repeat(2,1fr);}}
+  .stat{background:var(--panel-2);border:1px solid var(--line);border-radius:11px;padding:12px;text-align:center;}
+  .stat b{display:block;font-family:'Bebas Neue';font-size:1.7rem;color:var(--gold-2);line-height:1.1;}
+  .stat span{font-size:.66rem;text-transform:uppercase;letter-spacing:.07em;color:rgba(243,234,217,.5);}
+
+  .daynav{display:flex;align-items:center;gap:8px;margin-bottom:12px;}
+  .daynav input[type=date]{flex:1;text-align:center;}
+  .daynav .btn{flex:none;}
+  .day-title{font-family:'Bebas Neue';font-size:1.4rem;color:var(--gold-2);margin:16px 0 8px;text-transform:uppercase;}
+
+  .cita{background:var(--panel-2);border:1px solid var(--line);border-left:4px solid var(--line);border-radius:12px;padding:13px 14px;margin-bottom:10px;}
+  .cita.pendiente{border-left-color:var(--warn);}
+  .cita.confirmada{border-left-color:var(--ok);}
+  .cita.completada{border-left-color:#5b8def;}
+  .cita.cancelada,.cita.noshow{border-left-color:var(--bad);opacity:.6;}
+  .cita .top{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;}
+  .cita .hora{font-family:'Bebas Neue';font-size:1.6rem;color:var(--gold-2);letter-spacing:.03em;}
+  .cita .nom{font-weight:700;font-size:1rem;}
+  .cita .meta{font-size:.82rem;color:rgba(243,234,217,.6);margin-top:5px;line-height:1.6;}
+  .cita .acts{display:flex;gap:7px;flex-wrap:wrap;margin-top:11px;}
+  .pill{display:inline-block;padding:3px 9px;border-radius:999px;font-size:.64rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;}
+  .pill.pendiente{background:rgba(240,163,58,.16);color:var(--warn);}
+  .pill.confirmada{background:rgba(62,207,142,.14);color:var(--ok);}
+  .pill.completada{background:rgba(91,141,239,.16);color:#8fb0ff;}
+  .pill.cancelada,.pill.noshow{background:rgba(255,107,112,.14);color:var(--bad);}
+  .vacio{text-align:center;color:rgba(243,234,217,.35);font-style:italic;padding:26px 10px;font-size:.9rem;}
+
+  .dia-row{border:1px solid var(--line);border-radius:11px;padding:12px;margin-bottom:9px;background:var(--panel-2);}
+  .dia-head{display:flex;align-items:center;gap:10px;}
+  .dia-head b{font-size:.95rem;flex:1;}
+  .switch{position:relative;width:46px;height:26px;flex:none;}
+  .switch input{position:absolute;opacity:0;width:100%;height:100%;margin:0;z-index:2;cursor:pointer;}
+  .switch i{position:absolute;inset:0;background:rgba(255,255,255,.12);border-radius:999px;transition:.2s;}
+  .switch i::after{content:"";position:absolute;width:20px;height:20px;border-radius:50%;background:#fff;top:3px;left:3px;transition:.2s;}
+  .switch input:checked + i{background:var(--gold);}
+  .switch input:checked + i::after{transform:translateX(20px);}
+  .rangos{margin-top:10px;display:none;}
+  .rangos.on{display:block;}
+  .rango{display:flex;align-items:center;gap:6px;margin-bottom:8px;}
+  .rango input{flex:1;min-width:0;padding:11px 4px;text-align:center;font-size:14px;}
+  .rango .x{flex:none;width:38px;min-height:40px;padding:0;}
+  .copiar{font-size:.72rem;color:rgba(243,234,217,.45);margin-top:4px;}
+
+  .exc{display:flex;align-items:center;gap:10px;background:var(--panel-2);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:8px;font-size:.85rem;}
+  .exc b{color:var(--gold-2);}
+  .exc .sp{margin-left:auto;}
+
+  .srv{background:var(--panel-2);border:1px solid var(--line);border-radius:11px;padding:12px;margin-bottom:10px;}
+  .srv .row3{margin-top:8px;}
+
+  .modal{position:fixed;inset:0;background:rgba(0,0,0,.78);z-index:100;display:none;align-items:flex-end;justify-content:center;}
+  .modal.on{display:flex;}
+  .modal-inner{background:var(--panel);border:1px solid var(--line);border-radius:18px 18px 0 0;width:100%;max-width:520px;
+               max-height:92vh;overflow-y:auto;padding:20px 16px calc(24px + env(safe-area-inset-bottom));}
+  @media(min-width:560px){.modal{align-items:center;}.modal-inner{border-radius:18px;}}
+
+  .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(120px);background:var(--gold);color:#1a1200;
+         padding:12px 22px;border-radius:999px;font-weight:800;font-size:.82rem;z-index:200;transition:transform .25s;box-shadow:0 10px 30px rgba(0,0,0,.5);max-width:90vw;text-align:center;}
+  .toast.on{transform:translateX(-50%) translateY(0);}
+  .toast.bad{background:var(--bad);color:#2a0004;}
+
+  #login{max-width:340px;margin:16vh auto 0;text-align:center;}
+  #login img{width:76px;height:76px;border-radius:50%;border:2px solid var(--gold);object-fit:cover;margin-bottom:14px;}
+  #login h1{font-size:1.8rem;margin-bottom:4px;}
+  #login p{font-size:.82rem;color:rgba(243,234,217,.45);margin-bottom:20px;}
+  #pin{text-align:center;font-size:1.5rem;letter-spacing:.3em;padding:14px;}
+  .hide{display:none !important;}
+</style>
+</head>
+<body>
+
+<div id="login">
+  <img src="img/logo.jpg" alt="">
+  <h1>Panel Del Mar</h1>
+  <p>Entra con tu PIN para ver la agenda</p>
+  <div class="f"><input id="pin" type="password" inputmode="numeric" placeholder="••••" autocomplete="current-password"></div>
+  <button class="btn btn-gold btn-full" id="loginBtn">Entrar</button>
+  <p style="margin-top:14px;font-size:.75rem;"><a href="/">← Volver al sitio</a></p>
+</div>
+
+<div id="app" class="hide">
+  <header>
+    <div class="hrow">
+      <img src="img/logo.jpg" alt="">
+      <h1>Panel <span style="color:var(--gold)">Del Mar</span></h1>
+      <button class="btn btn-ghost btn-sm sp" id="salirBtn">Salir</button>
+    </div>
+    <div class="tabs">
+      <button class="tab on" data-tab="agenda">📅 Agenda</button>
+      <button class="tab" data-tab="horarios">🕒 Horarios</button>
+      <button class="tab" data-tab="servicios">✂️ Servicios</button>
+      <button class="tab" data-tab="ajustes">⚙️ Ajustes</button>
+    </div>
+  </header>
+
+  <div class="wrap" style="padding-top:14px;">
+
+    <!-- AGENDA -->
+    <div id="tab-agenda">
+      <div class="stats" id="stats"></div>
+      <div class="card">
+        <div class="daynav">
+          <button class="btn btn-ghost btn-sm" id="prevDia">‹</button>
+          <input type="date" id="fechaSel">
+          <button class="btn btn-ghost btn-sm" id="nextDia">›</button>
+        </div>
+        <div class="row" style="margin-bottom:12px;">
+          <select id="vista"><option value="dia">Ver un día</option><option value="semana">Ver la semana</option><option value="todas">Próximas todas</option></select>
+          <select id="filtro">
+            <option value="activas">Activas</option>
+            <option value="todas">Todas</option>
+            <option value="pendiente">Solo pendientes de anticipo</option>
+            <option value="confirmada">Solo confirmadas</option>
+            <option value="cancelada">Canceladas / no show</option>
+          </select>
+        </div>
+        <button class="btn btn-gold btn-full" id="nuevaBtn">+ Agendar cita a mano</button>
+      </div>
+      <div id="listaCitas"></div>
+    </div>
+
+    <!-- HORARIOS -->
+    <div id="tab-horarios" class="hide">
+      <div class="card">
+        <h2>Horario de la semana</h2>
+        <p class="sub">Prende el día y pon los rangos en que atiendes. Puedes poner dos rangos si cierras a media tarde. Lo que guardes aquí es justo lo que ven los clientes.</p>
+        <div id="diasEditor"></div>
+      </div>
+      <div class="card">
+        <h2>Reglas de la agenda</h2>
+        <p class="sub">Cada cuánto empieza una cita, cuánto tiempo guardas un lugar sin anticipo y qué tan lejos pueden reservar.</p>
+        <div class="row">
+          <div class="f"><label>Citas cada (min)</label><input type="number" id="rIntervalo" min="5" max="240" step="5"></div>
+          <div class="f"><label>Avisar mínimo (min antes)</label><input type="number" id="rAnticipacion" min="0" max="1440" step="15"></div>
+          <div class="f"><label>Días que puede reservar</label><input type="number" id="rDias" min="1" max="120"></div>
+          <div class="f"><label>Horas para pagar anticipo</label><input type="number" id="rVigencia" min="1" max="168"></div>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Días especiales</h2>
+        <p class="sub">Vacaciones, puentes o un día con horario distinto. Esto manda sobre el horario normal.</p>
+        <div id="excLista"></div>
+        <div class="row" style="margin-top:10px;">
+          <div class="f"><label>Fecha</label><input type="date" id="excFecha"></div>
+          <div class="f"><label>¿Qué pasa?</label>
+            <select id="excTipo"><option value="cerrado">Cerrado todo el día</option><option value="rango">Horario especial</option></select>
+          </div>
+        </div>
+        <div class="row hide" id="excRangoWrap">
+          <div class="f"><label>Abre</label><input type="time" id="excIni" value="10:00"></div>
+          <div class="f"><label>Cierra</label><input type="time" id="excFin" value="19:00"></div>
+        </div>
+        <div class="f"><label>Nota (opcional)</label><input type="text" id="excNota" placeholder="Ej. vacaciones" maxlength="60"></div>
+        <button class="btn btn-ghost btn-full" id="excAdd">+ Agregar día especial</button>
+      </div>
+      <button class="btn btn-gold btn-full" id="guardarHorarios" style="margin-bottom:20px;">Guardar horarios</button>
+    </div>
+
+    <!-- SERVICIOS -->
+    <div id="tab-servicios" class="hide">
+      <div class="card">
+        <h2>Servicios y precios</h2>
+        <p class="sub">Lo que edites aquí cambia el menú del sitio y las opciones al reservar. La duración define cuánto tiempo bloquea la cita en tu agenda.</p>
+        <div id="srvLista"></div>
+        <button class="btn btn-ghost btn-full" id="srvAdd" style="margin-top:8px;">+ Agregar servicio</button>
+      </div>
+      <button class="btn btn-gold btn-full" id="guardarServicios" style="margin-bottom:20px;">Guardar servicios</button>
+    </div>
+
+    <!-- AJUSTES -->
+    <div id="tab-ajustes" class="hide">
+      <div class="card">
+        <h2>Anticipo</h2>
+        <p class="sub">Con el anticipo prendido, las citas del sitio entran como <b>pendientes</b> hasta que tú confirmes que llegó el dinero.</p>
+        <div class="dia-head" style="margin-bottom:12px;">
+          <b>Pedir anticipo para apartar</b>
+          <label class="switch" style="margin:0;"><input type="checkbox" id="aActivo"><i></i></label>
+        </div>
+        <div class="row">
+          <div class="f"><label>Tipo</label><select id="aTipo"><option value="fijo">Monto fijo</option><option value="porcentaje">% del servicio</option></select></div>
+          <div class="f"><label>Cantidad</label><input type="number" id="aValor" min="0"></div>
+        </div>
+        <div class="row">
+          <div class="f"><label>Banco</label><input type="text" id="aBanco" placeholder="BBVA"></div>
+          <div class="f"><label>Titular</label><input type="text" id="aTitular" placeholder="Marlén Solís"></div>
+        </div>
+        <div class="row">
+          <div class="f"><label>Tarjeta</label><input type="text" id="aTarjeta" inputmode="numeric" placeholder="4152 ...."></div>
+          <div class="f"><label>CLABE</label><input type="text" id="aClabe" inputmode="numeric" placeholder="012 ...."></div>
+        </div>
+        <div class="f"><label>Mensaje para el cliente</label><input type="text" id="aNota" maxlength="200"></div>
+      </div>
+      <div class="card">
+        <h2>Datos del negocio</h2>
+        <p class="sub">El WhatsApp es al que llegan los avisos de cita.</p>
+        <div class="f"><label>WhatsApp (con 52)</label><input type="tel" id="nTel" inputmode="numeric" placeholder="529585856218"></div>
+        <div class="f"><label>Dirección</label><input type="text" id="nDir"></div>
+        <div class="f"><label>Instagram (sin @)</label><input type="text" id="nIg"></div>
+      </div>
+      <div class="card">
+        <h2>PIN del panel</h2>
+        <p class="sub">Mínimo 4 caracteres. Al cambiarlo se cierran las demás sesiones.</p>
+        <div class="f"><input type="text" id="nuevoPin" placeholder="Nuevo PIN (deja vacío para no cambiarlo)"></div>
+      </div>
+      <button class="btn btn-gold btn-full" id="guardarAjustes" style="margin-bottom:20px;">Guardar ajustes</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- MODAL NUEVA CITA -->
+<div class="modal" id="modalNueva">
+  <div class="modal-inner">
+    <h2 style="font-size:1.4rem;margin-bottom:12px;">Agendar cita a mano</h2>
+    <div class="f"><label>Cliente</label><input type="text" id="mNombre" placeholder="Nombre"></div>
+    <div class="f"><label>WhatsApp (opcional)</label><input type="tel" id="mTel" inputmode="numeric" placeholder="9581234567"></div>
+    <div class="f"><label>Servicio</label><select id="mServicio"></select></div>
+    <div class="row">
+      <div class="f"><label>Fecha</label><input type="date" id="mFecha"></div>
+      <div class="f"><label>Hora</label><input type="time" id="mHora" step="300"></div>
+    </div>
+    <div class="row">
+      <div class="f"><label>Duración (min)</label><input type="number" id="mDur" min="5" step="5"></div>
+      <div class="f"><label>Precio</label><input type="number" id="mPrecio" min="0"></div>
+    </div>
+    <div class="row">
+      <div class="f"><label>Estado</label><select id="mEstado"><option value="confirmada">Confirmada</option><option value="pendiente">Pendiente de anticipo</option></select></div>
+      <div class="f"><label>Pago</label><select id="mPago"><option value="efectivo">Efectivo</option><option value="transferencia">Transferencia</option></select></div>
+    </div>
+    <div class="f"><label>Nota</label><input type="text" id="mNota" maxlength="200"></div>
+    <div class="row">
+      <button class="btn btn-ghost" id="mCancel">Cancelar</button>
+      <button class="btn btn-gold" id="mGuardar">Agendar</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const DIAS = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+  const MESES = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+  const TZ = 'America/Mexico_City';
+  let TOKEN = localStorage.getItem('dm_token') || '';
+  let D = null;            // datos completos
+  let fechaSel = null;
+
+  const esc = (s) => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const money = (n) => '$' + Number(n || 0).toLocaleString('es-MX');
+  const hoyISO = () => new Intl.DateTimeFormat('en-CA',{timeZone:TZ,year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+  const dow = (iso) => { const [y,m,d]=iso.split('-').map(Number); return new Date(Date.UTC(y,m-1,d)).getUTCDay(); };
+  const sumar = (iso,n) => { const [y,m,d]=iso.split('-').map(Number); return new Date(Date.UTC(y,m-1,d+n)).toISOString().slice(0,10); };
+  const fLarga = (iso) => { const [y,m,d]=iso.split('-').map(Number); return `${DIAS[dow(iso)]} ${d} ${MESES[m-1]}`; };
+  const h12 = (hm) => { let [h,m]=String(hm).split(':').map(Number); const s=h>=12?'pm':'am'; h=h%12||12; return `${h}:${String(m).padStart(2,'0')}${s}`; };
+  const aMin = (hm) => { const [h,m]=String(hm).split(':').map(Number); return h*60+(m||0); };
+  const aHM = (min) => `${String(Math.floor(min/60)).padStart(2,'0')}:${String(min%60).padStart(2,'0')}`;
+
+  let toastT;
+  function toast(msg, malo) {
+    const t = $('toast');
+    t.textContent = msg; t.classList.toggle('bad', !!malo); t.classList.add('on');
+    clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('on'), 2600);
+  }
+
+  async function api(accion, body, metodo) {
+    const r = await fetch('/api/admin?accion=' + accion, {
+      method: metodo || (body ? 'POST' : 'GET'),
+      headers: { 'Content-Type':'application/json', 'x-dm-token': TOKEN },
+      body: body ? JSON.stringify(body) : undefined,
+    });
+    const j = await r.json().catch(() => ({ error:'Respuesta inválida' }));
+    if (r.status === 401 && accion !== 'login') { salir(); throw new Error('Sesión expirada'); }
+    if (!r.ok) throw new Error(j.error || 'Error');
+    return j;
+  }
+
+  /* ---------- login ---------- */
+  async function entrar() {
+    const pin = $('pin').value.trim();
+    if (!pin) return;
+    $('loginBtn').disabled = true;
+    try {
+      const r = await fetch('/api/admin?accion=login', {
+        method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ pin }),
+      });
+      const j = await r.json();
+      if (!r.ok) throw new Error(j.error);
+      TOKEN = j.token; localStorage.setItem('dm_token', TOKEN);
+      $('pin').value = '';
+      abrirPanel();
+    } catch (e) { toast(e.message, true); }
+    $('loginBtn').disabled = false;
+  }
+  $('loginBtn').addEventListener('click', entrar);
+  $('pin').addEventListener('keydown', e => { if (e.key === 'Enter') entrar(); });
+
+  function salir() {
+    TOKEN = ''; localStorage.removeItem('dm_token');
+    $('app').classList.add('hide'); $('login').classList.remove('hide');
+  }
+  $('salirBtn').addEventListener('click', salir);
+
+  async function abrirPanel() {
+    try { D = await api('data'); }
+    catch (e) { toast(e.message, true); return; }
+    $('login').classList.add('hide'); $('app').classList.remove('hide');
+    fechaSel = fechaSel || D.hoy;
+    $('fechaSel').value = fechaSel;
+    pintaAgenda(); pintaHorarios(); pintaServicios(); pintaAjustes();
+  }
+
+  /* ---------- tabs ---------- */
+  document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(x => x.classList.remove('on'));
+    t.classList.add('on');
+    ['agenda','horarios','servicios','ajustes'].forEach(n => $('tab-'+n).classList.toggle('hide', n !== t.dataset.tab));
+    window.scrollTo({ top:0, behavior:'smooth' });
+  }));
+
+  /* ---------- AGENDA ---------- */
+  const vigente = (c) => {
+    if (['cancelada','noshow'].includes(c.estado)) return false;
+    if (c.estado === 'pendiente') return Date.now() <= c.creada + D.reglas.vigenciaHoras*3600000;
+    return true;
+  };
+  const vencida = (c) => c.estado === 'pendiente' && Date.now() > c.creada + D.reglas.vigenciaHoras*3600000;
+
+  function pintaAgenda() {
+    const hoy = D.hoy;
+    const hoyCitas = D.citas.filter(c => c.fecha === hoy && vigente(c));
+    const pend = D.citas.filter(c => c.estado === 'pendiente' && !vencida(c) && c.fecha >= hoy);
+    const prox = D.citas.filter(c => c.fecha > hoy && vigente(c));
+    const ingreso = hoyCitas.reduce((s,c) => s + (Number(c.precio)||0), 0);
+    $('stats').innerHTML = `
+      <div class="stat"><b>${hoyCitas.length}</b><span>Citas hoy</span></div>
+      <div class="stat"><b>${money(ingreso)}</b><span>Esperado hoy</span></div>
+      <div class="stat"><b>${pend.length}</b><span>Sin anticipo</span></div>
+      <div class="stat"><b>${prox.length}</b><span>Próximas</span></div>`;
+
+    const vista = $('vista').value, filtro = $('filtro').value;
+    let dias = [];
+    if (vista === 'dia') dias = [fechaSel];
+    else if (vista === 'semana') { const ini = sumar(fechaSel, -dow(fechaSel)); dias = Array.from({length:7}, (_,i) => sumar(ini,i)); }
+    else { const set = new Set(D.citas.filter(c => c.fecha >= D.hoy).map(c => c.fecha)); dias = [...set].sort(); }
+
+    const cont = $('listaCitas');
+    cont.innerHTML = '';
+    let total = 0;
+    dias.forEach(f => {
+      let citas = D.citas.filter(c => c.fecha === f);
+      if (filtro === 'activas') citas = citas.filter(c => vigente(c));
+      else if (filtro === 'cancelada') citas = citas.filter(c => ['cancelada','noshow'].includes(c.estado));
+      else if (filtro !== 'todas') citas = citas.filter(c => c.estado === filtro && !(filtro==='pendiente' && vencida(c)));
+      citas.sort((a,b) => a.hora.localeCompare(b.hora));
+      total += citas.length;
+      if (vista !== 'dia' && !citas.length) return;
+      const h = document.createElement('div');
+      h.className = 'day-title';
+      const rangos = rangosDe(f);
+      h.innerHTML = `${fLarga(f)} <span style="font-family:Inter;font-size:.7rem;color:rgba(243,234,217,.45);font-weight:600;">${rangos.length ? rangos.map(r=>h12(r.ini)+'–'+h12(r.fin)).join(' · ') : 'CERRADO'}</span>`;
+      cont.appendChild(h);
+      if (!citas.length) { const v = document.createElement('div'); v.className = 'vacio'; v.textContent = 'Sin citas este día'; cont.appendChild(v); return; }
+      citas.forEach(c => cont.appendChild(tarjeta(c)));
+    });
+    if (!total && vista !== 'dia') cont.innerHTML = '<div class="vacio">No hay citas que mostrar</div>';
+  }
+
+  function rangosDe(iso) {
+    const e = (D.excepciones||[]).find(x => x.fecha === iso);
+    if (e) { if (e.cerrado) return []; if (e.rangos && e.rangos.length) return e.rangos; }
+    const h = D.horario[dow(iso)] || D.horario[String(dow(iso))];
+    return (h && h.abierto) ? (h.rangos||[]) : [];
+  }
+
+  function tarjeta(c) {
+    const el = document.createElement('div');
+    const venc = vencida(c);
+    el.className = 'cita ' + (venc ? 'cancelada' : c.estado);
+    const etiqueta = venc ? 'Apartado vencido' : { pendiente:'Falta anticipo', confirmada:'Confirmada', completada:'Realizada', cancelada:'Cancelada', noshow:'No llegó' }[c.estado];
+    const fin = aHM(aMin(c.hora) + (c.duracion||30));
+    const wa = c.telefono ? `https://wa.me/${c.telefono.length > 10 ? c.telefono : '52'+c.telefono}?text=` + encodeURIComponent(
+      `Hola ${c.cliente}! 💈 Te escribo de Del Mar Barber Studio por tu cita del ${fLarga(c.fecha)} a las ${h12(c.hora)} (folio ${c.folio}).`) : null;
+    el.innerHTML = `
+      <div class="top">
+        <span class="hora">${h12(c.hora)}</span>
+        <span class="nom">${esc(c.cliente)}</span>
+        <span class="pill ${venc ? 'cancelada' : c.estado}">${etiqueta}</span>
+      </div>
+      <div class="meta">
+        ${esc(c.servicio)} · ${money(c.precio)} · ${c.duracion||30} min (hasta ${h12(fin)})<br>
+        ${c.telefono ? `📱 ${esc(c.telefono)} · ` : ''}Anticipo ${money(c.anticipo)} (${esc(c.pago)}) ${c.anticipoPagado ? '✅ pagado' : '⏳ pendiente'}<br>
+        Folio <b>${c.folio}</b>${c.nota ? ' · 📝 ' + esc(c.nota) : ''}
+      </div>
+      <div class="acts">
+        ${c.estado === 'pendiente' ? `<button class="btn btn-ok btn-sm" data-op="confirmada">✅ Ya pagó anticipo</button>` : ''}
+        ${['pendiente','confirmada'].includes(c.estado) ? `<button class="btn btn-ghost btn-sm" data-op="completada">✂️ Ya se atendió</button>` : ''}
+        ${['pendiente','confirmada'].includes(c.estado) ? `<button class="btn btn-bad btn-sm" data-op="cancelada">✕ Cancelar</button>` : ''}
+        ${c.estado === 'confirmada' ? `<button class="btn btn-bad btn-sm" data-op="noshow">👻 No llegó</button>` : ''}
+        ${['cancelada','noshow'].includes(c.estado) ? `<button class="btn btn-ghost btn-sm" data-op="confirmada">↩︎ Reactivar</button>` : ''}
+        ${wa ? `<a class="btn btn-wa btn-sm" href="${wa}" target="_blank" rel="noopener">💬 WhatsApp</a>` : ''}
+        <button class="btn btn-ghost btn-sm" data-op="nota">📝 Nota</button>
+      </div>`;
+    el.querySelectorAll('[data-op]').forEach(b => b.addEventListener('click', () => accionCita(c, b.dataset.op)));
+    return el;
+  }
+
+  async function accionCita(c, op) {
+    let body = { folio: c.folio, op };
+    if (op === 'nota') {
+      const nota = prompt('Nota para esta cita:', c.nota || '');
+      if (nota === null) return;
+      body.nota = nota;
+    }
+    if (op === 'cancelada' && !confirm(`¿Cancelar la cita de ${c.cliente}?`)) return;
+    try {
+      await api('cita', body);
+      D = await api('data');
+      pintaAgenda();
+      toast(op === 'confirmada' ? 'Cita confirmada' : 'Listo');
+    } catch (e) { toast(e.message, true); }
+  }
+
+  $('fechaSel').addEventListener('change', () => { fechaSel = $('fechaSel').value || D.hoy; pintaAgenda(); });
+  $('prevDia').addEventListener('click', () => { fechaSel = sumar(fechaSel, -1); $('fechaSel').value = fechaSel; pintaAgenda(); });
+  $('nextDia').addEventListener('click', () => { fechaSel = sumar(fechaSel, 1); $('fechaSel').value = fechaSel; pintaAgenda(); });
+  $('vista').addEventListener('change', pintaAgenda);
+  $('filtro').addEventListener('change', pintaAgenda);
+
+  /* ---------- nueva cita manual ---------- */
+  $('nuevaBtn').addEventListener('click', () => {
+    $('mServicio').innerHTML = D.servicios.map(s => `<option value="${s.id}" data-p="${s.precio}" data-d="${s.duracion}">${esc(s.nombre)} — ${money(s.precio)}</option>`).join('');
+    sincroServicio();
+    $('mFecha').value = fechaSel;
+    $('mHora').value = '';
+    $('mNombre').value = ''; $('mTel').value = ''; $('mNota').value = '';
+    $('modalNueva').classList.add('on');
+  });
+  const sincroServicio = () => {
+    const o = $('mServicio').selectedOptions[0];
+    if (!o) return;
+    $('mPrecio').value = o.dataset.p; $('mDur').value = o.dataset.d;
+  };
+  $('mServicio').addEventListener('change', sincroServicio);
+  $('mCancel').addEventListener('click', () => $('modalNueva').classList.remove('on'));
+  $('modalNueva').addEventListener('click', e => { if (e.target.id === 'modalNueva') $('modalNueva').classList.remove('on'); });
+
+  $('mGuardar').addEventListener('click', async () => {
+    const body = {
+      cliente: $('mNombre').value.trim(), telefono: $('mTel').value.trim(),
+      servicio: $('mServicio').value, fecha: $('mFecha').value, hora: $('mHora').value,
+      duracion: $('mDur').value, precio: $('mPrecio').value,
+      estado: $('mEstado').value, pago: $('mPago').value, nota: $('mNota').value.trim(),
+    };
+    if (!body.cliente) return toast('Ponle nombre al cliente', true);
+    if (!body.fecha || !body.hora) return toast('Falta fecha u hora', true);
+    $('mGuardar').disabled = true;
+    try {
+      await api('crear', body);
+      $('modalNueva').classList.remove('on');
+      fechaSel = body.fecha; $('fechaSel').value = fechaSel;
+      D = await api('data'); pintaAgenda();
+      toast('Cita agendada');
+    } catch (e) {
+      if (/encimada/.test(e.message) && confirm(e.message)) {
+        try { await api('crear', { ...body, forzar:true }); $('modalNueva').classList.remove('on'); D = await api('data'); pintaAgenda(); toast('Cita agendada'); }
+        catch (e2) { toast(e2.message, true); }
+      } else toast(e.message, true);
+    }
+    $('mGuardar').disabled = false;
+  });
+
+  /* ---------- HORARIOS ---------- */
+  function pintaHorarios() {
+    const cont = $('diasEditor');
+    cont.innerHTML = '';
+    for (let d = 0; d <= 6; d++) {
+      const h = D.horario[d] || D.horario[String(d)] || { abierto:false, rangos:[] };
+      const row = document.createElement('div');
+      row.className = 'dia-row';
+      row.dataset.dia = d;
+      row.innerHTML = `
+        <div class="dia-head">
+          <b>${DIAS[d]}</b>
+          <span style="font-size:.75rem;color:rgba(243,234,217,.4);" class="et">${h.abierto ? 'Abierto' : 'Cerrado'}</span>
+          <label class="switch"><input type="checkbox" ${h.abierto ? 'checked' : ''}><i></i></label>
+        </div>
+        <div class="rangos ${h.abierto ? 'on' : ''}"></div>`;
+      const cajaR = row.querySelector('.rangos');
+      const pintaRangos = (lista) => {
+        cajaR.innerHTML = '';
+        (lista.length ? lista : [{ ini:'10:00', fin:'19:00' }]).forEach(r => cajaR.appendChild(filaRango(r)));
+        const add = document.createElement('button');
+        add.className = 'btn btn-ghost btn-sm'; add.textContent = '+ Otro rango';
+        add.onclick = () => cajaR.insertBefore(filaRango({ ini:'16:00', fin:'20:00' }), add);
+        cajaR.appendChild(add);
+        const cop = document.createElement('div');
+        cop.className = 'copiar';
+        cop.innerHTML = `<a href="#" data-copiar="${d}">Copiar este horario a todos los días abiertos</a>`;
+        cop.querySelector('a').onclick = (e) => { e.preventDefault(); copiarHorario(d); };
+        cajaR.appendChild(cop);
+      };
+      pintaRangos(h.rangos || []);
+      const sw = row.querySelector('.switch input');
+      sw.addEventListener('change', () => {
+        cajaR.classList.toggle('on', sw.checked);
+        row.querySelector('.et').textContent = sw.checked ? 'Abierto' : 'Cerrado';
+      });
+      cont.appendChild(row);
+    }
+    $('rIntervalo').value = D.reglas.intervalo;
+    $('rAnticipacion').value = D.reglas.anticipacionMin;
+    $('rDias').value = D.reglas.diasVista;
+    $('rVigencia').value = D.reglas.vigenciaHoras;
+    pintaExcepciones();
+  }
+
+  function filaRango(r) {
+    const el = document.createElement('div');
+    el.className = 'rango';
+    el.innerHTML = `<input type="time" class="ini" value="${r.ini}" step="300">
+                    <span style="opacity:.5;">a</span>
+                    <input type="time" class="fin" value="${r.fin}" step="300">
+                    <button class="btn btn-bad btn-sm x">✕</button>`;
+    el.querySelector('.x').onclick = () => el.remove();
+    return el;
+  }
+
+  function leerHorario() {
+    const out = {};
+    document.querySelectorAll('#diasEditor .dia-row').forEach(row => {
+      const d = row.dataset.dia;
+      const abierto = row.querySelector('.switch input').checked;
+      const rangos = [...row.querySelectorAll('.rango')].map(x => ({
+        ini: x.querySelector('.ini').value, fin: x.querySelector('.fin').value,
+      })).filter(x => x.ini && x.fin);
+      out[d] = { abierto, rangos };
+    });
+    return out;
+  }
+
+  function copiarHorario(d) {
+    const src = leerHorario()[d];
+    document.querySelectorAll('#diasEditor .dia-row').forEach(row => {
+      if (row.dataset.dia === String(d)) return;
+      if (!row.querySelector('.switch input').checked) return;
+      const caja = row.querySelector('.rangos');
+      [...caja.querySelectorAll('.rango')].forEach(x => x.remove());
+      src.rangos.forEach(r => caja.insertBefore(filaRango(r), caja.firstChild));
+    });
+    toast('Horario copiado a los días abiertos');
+  }
+
+  let excTemp = [];
+  function pintaExcepciones() {
+    excTemp = JSON.parse(JSON.stringify(D.excepciones || []));
+    renderExc();
+  }
+  function renderExc() {
+    const c = $('excLista');
+    const futuras = excTemp.slice().sort((a,b) => a.fecha.localeCompare(b.fecha));
+    c.innerHTML = futuras.length ? '' : '<div class="vacio" style="padding:12px;">Ningún día especial</div>';
+    futuras.forEach((e) => {
+      const el = document.createElement('div');
+      el.className = 'exc';
+      el.innerHTML = `<div><b>${fLarga(e.fecha)}</b><br><span style="font-size:.78rem;color:rgba(243,234,217,.5);">
+        ${e.cerrado ? 'Cerrado' : (e.rangos||[]).map(r => h12(r.ini)+'–'+h12(r.fin)).join(', ')}${e.nota ? ' · '+esc(e.nota) : ''}</span></div>
+        <button class="btn btn-bad btn-sm sp">✕</button>`;
+      el.querySelector('button').onclick = () => { excTemp = excTemp.filter(x => x !== e); renderExc(); };
+      c.appendChild(el);
+    });
+  }
+  $('excTipo').addEventListener('change', () => $('excRangoWrap').classList.toggle('hide', $('excTipo').value !== 'rango'));
+  $('excAdd').addEventListener('click', () => {
+    const f = $('excFecha').value;
+    if (!f) return toast('Elige la fecha', true);
+    const cerrado = $('excTipo').value === 'cerrado';
+    excTemp = excTemp.filter(x => x.fecha !== f);
+    excTemp.push({ fecha:f, cerrado, rangos: cerrado ? [] : [{ ini:$('excIni').value, fin:$('excFin').value }], nota: $('excNota').value.trim() });
+    $('excFecha').value = ''; $('excNota').value = '';
+    renderExc();
+    toast('Agregado — no olvides Guardar horarios');
+  });
+
+  $('guardarHorarios').addEventListener('click', async () => {
+    const b = $('guardarHorarios'); b.disabled = true;
+    try {
+      await api('config', { parche: {
+        horario: leerHorario(),
+        excepciones: excTemp,
+        reglas: { intervalo:$('rIntervalo').value, anticipacionMin:$('rAnticipacion').value, diasVista:$('rDias').value, vigenciaHoras:$('rVigencia').value },
+      }});
+      D = await api('data'); pintaHorarios(); pintaAgenda();
+      toast('Horarios guardados');
+    } catch (e) { toast(e.message, true); }
+    b.disabled = false;
+  });
+
+  /* ---------- SERVICIOS ---------- */
+  function pintaServicios() {
+    const c = $('srvLista');
+    c.innerHTML = '';
+    D.servicios.forEach(s => c.appendChild(filaServicio(s)));
+  }
+  function filaServicio(s) {
+    const el = document.createElement('div');
+    el.className = 'srv';
+    el.dataset.id = s.id || '';
+    el.innerHTML = `
+      <div class="row">
+        <div class="f" style="margin:0;"><label>Nombre</label><input class="s-nom" value="${esc(s.nombre)}" maxlength="40"></div>
+        <div class="f" style="margin:0;"><label>Icono</label><input class="s-ico" value="${esc(s.icono||'💈')}" maxlength="4"></div>
+      </div>
+      <div class="f" style="margin-top:8px;"><label>Descripción</label><input class="s-desc" value="${esc(s.desc||'')}" maxlength="120"></div>
+      <div class="row3">
+        <div class="f" style="margin:0;"><label>Precio</label><input class="s-precio" type="number" min="0" value="${s.precio}"></div>
+        <div class="f" style="margin:0;"><label>Minutos</label><input class="s-dur" type="number" min="5" step="5" value="${s.duracion}"></div>
+        <div class="f" style="margin:0;"><label>Visible</label>
+          <label class="switch" style="margin-top:8px;"><input class="s-act" type="checkbox" ${s.activo !== false ? 'checked' : ''}><i></i></label>
+        </div>
+      </div>
+      <button class="btn btn-bad btn-sm s-del" style="margin-top:8px;">Eliminar servicio</button>`;
+    el.querySelector('.s-del').onclick = () => { if (confirm('¿Eliminar este servicio?')) el.remove(); };
+    return el;
+  }
+  $('srvAdd').addEventListener('click', () => {
+    $('srvLista').appendChild(filaServicio({ id:'', nombre:'Nuevo servicio', icono:'💈', desc:'', precio:150, duracion:40, activo:true }));
+  });
+  $('guardarServicios').addEventListener('click', async () => {
+    const servicios = [...document.querySelectorAll('#srvLista .srv')].map(el => ({
+      id: el.dataset.id || undefined,
+      nombre: el.querySelector('.s-nom').value,
+      icono: el.querySelector('.s-ico').value,
+      desc: el.querySelector('.s-desc').value,
+      precio: el.querySelector('.s-precio').value,
+      duracion: el.querySelector('.s-dur').value,
+      activo: el.querySelector('.s-act').checked,
+    }));
+    if (!servicios.length) return toast('Deja al menos un servicio', true);
+    const b = $('guardarServicios'); b.disabled = true;
+    try {
+      await api('config', { parche: { servicios } });
+      D = await api('data'); pintaServicios();
+      toast('Servicios guardados');
+    } catch (e) { toast(e.message, true); }
+    b.disabled = false;
+  });
+
+  /* ---------- AJUSTES ---------- */
+  function pintaAjustes() {
+    const a = D.anticipo, n = D.negocio;
+    $('aActivo').checked = !!a.activo;
+    $('aTipo').value = a.tipo; $('aValor').value = a.valor;
+    $('aBanco').value = a.banco || ''; $('aTitular').value = a.titular || '';
+    $('aTarjeta').value = a.tarjeta || ''; $('aClabe').value = a.clabe || ''; $('aNota').value = a.nota || '';
+    $('nTel').value = n.telefono || ''; $('nDir').value = n.direccion || ''; $('nIg').value = n.instagram || '';
+  }
+  $('guardarAjustes').addEventListener('click', async () => {
+    const b = $('guardarAjustes'); b.disabled = true;
+    const parche = {
+      anticipo: {
+        activo: $('aActivo').checked, tipo: $('aTipo').value, valor: $('aValor').value,
+        banco: $('aBanco').value, titular: $('aTitular').value, tarjeta: $('aTarjeta').value,
+        clabe: $('aClabe').value, nota: $('aNota').value,
+      },
+      negocio: { telefono: $('nTel').value.replace(/\D/g,''), direccion: $('nDir').value, instagram: $('nIg').value.replace('@','') },
+    };
+    const pin = $('nuevoPin').value.trim();
+    if (pin) parche.pin = pin;
+    try {
+      const r = await api('config', { parche });
+      if (r.token) { TOKEN = r.token; localStorage.setItem('dm_token', TOKEN); $('nuevoPin').value = ''; }
+      D = await api('data'); pintaAjustes();
+      toast(pin ? 'Guardado, PIN actualizado' : 'Ajustes guardados');
+    } catch (e) { toast(e.message, true); }
+    b.disabled = false;
+  });
+
+  /* ---------- arranque ---------- */
+  if (TOKEN) abrirPanel().catch(() => salir());
+})();
+</script>
+</body>
+</html>

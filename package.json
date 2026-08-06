@@ -1,0 +1,10 @@
+{
+  "name": "delmar-barber",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Del Mar Barber Studio — sitio y sistema de citas con anticipo",
+  "dependencies": {
+    "@vercel/blob": "^2.7.0"
+  }
+}
