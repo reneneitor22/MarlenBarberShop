@@ -23,8 +23,9 @@
     --ok:#3ecf8e;
     --warn:#f0a33a;
   }
-  *{box-sizing:border-box;margin:0;padding:0;}
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
   html{scroll-behavior:smooth;background:var(--black);}
+  section[id]{scroll-margin-top:72px;}
   body{
     background:var(--black);
     color:var(--cream);
@@ -88,6 +89,7 @@
   .btn[disabled],.btn[aria-disabled="true"]{opacity:.32;cursor:not-allowed;pointer-events:none;transform:none;box-shadow:none;}
 
   section{padding:100px 0;position:relative;}
+  @media(max-width:640px){section{padding:64px 0;}}
   .section-tag{text-align:center;font-size:.78rem;text-transform:uppercase;letter-spacing:.2em;color:var(--gold);font-weight:700;margin-bottom:10px;}
   .section-title{text-align:center;font-size:clamp(2.2rem,5vw,3.2rem);text-transform:uppercase;margin-bottom:16px;}
   .section-desc{text-align:center;max-width:600px;margin:0 auto 56px;color:rgba(243,234,217,.65);font-size:1rem;line-height:1.6;}
@@ -96,7 +98,7 @@
   .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px;}
   .service-card{
     background:var(--glass);border:1px solid var(--line);border-radius:14px;padding:32px 26px;
-    backdrop-filter:blur(6px);transition:transform .25s, border-color .25s, background .25s;
+    -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);transition:transform .25s, border-color .25s, background .25s;
   }
   .service-card:hover{transform:translateY(-6px);border-color:rgba(212,175,55,.4);background:rgba(255,255,255,.07);}
   .service-card .icon{font-size:1.8rem;margin-bottom:16px;display:block;}
@@ -117,7 +119,7 @@
   @media(max-width:720px){.gallery{grid-template-columns:1fr;}}
 
   /* HORARIO */
-  .hours-wrap{max-width:520px;margin:0 auto;background:var(--glass);border:1px solid var(--line);border-radius:16px;overflow:hidden;backdrop-filter:blur(6px);}
+  .hours-wrap{max-width:520px;margin:0 auto;background:var(--glass);border:1px solid var(--line);border-radius:16px;overflow:hidden;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);}
   .hours-row{display:flex;justify-content:space-between;gap:16px;padding:16px 28px;border-bottom:1px solid var(--line);font-weight:600;}
   .hours-row:last-child{border-bottom:none;}
   .hours-row.closed{color:rgba(243,234,217,.35);}
@@ -127,7 +129,7 @@
 
   /* RESERVAR */
   #reservar{background:linear-gradient(180deg, transparent, rgba(200,29,37,.06) 40%, transparent);}
-  .booking{max-width:760px;margin:0 auto;background:var(--glass);border:1px solid var(--line);border-radius:20px;padding:34px;backdrop-filter:blur(8px);}
+  .booking{max-width:760px;margin:0 auto;background:var(--glass);border:1px solid var(--line);border-radius:20px;padding:34px;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);}
   @media(max-width:560px){.booking{padding:22px 18px;}}
   .step{margin-bottom:30px;}
   .step-label{font-size:.78rem;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);font-weight:800;margin:0 0 14px;display:flex;align-items:center;gap:10px;}
@@ -139,6 +141,7 @@
     cursor:pointer;font-size:.85rem;font-weight:600;transition:all .18s;color:var(--cream);text-align:center;
   }
   .chip:hover{border-color:rgba(212,175,55,.5);}
+  .chip:active{border-color:rgba(212,175,55,.7);background:rgba(212,175,55,.12);}
   .chip.selected{background:var(--gold);color:#1a1200;border-color:var(--gold);font-weight:800;}
   .chip.disabled{opacity:.28;cursor:not-allowed;pointer-events:none;}
   .chip small{display:block;font-weight:500;opacity:.75;font-size:.72rem;margin-top:2px;}
@@ -147,6 +150,15 @@
   .service-chip b{font-size:.95rem;}
   .day-chip{min-width:74px;}
   .hour-chip{min-width:78px;font-variant-numeric:tabular-nums;}
+  /* en pantallas chicas los chips van en rejilla pareja: el flex-wrap dejaba
+     filas con distinto ancho y huecos a la derecha */
+  @media(max-width:640px){
+    #serviceChips{display:grid;grid-template-columns:1fr;}
+    #dayChips{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));}
+    #hourChips{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));}
+    #payChips{display:grid;grid-template-columns:1fr;}
+    .service-chip,.day-chip,.hour-chip{min-width:0;}
+  }
   .muted-msg{font-size:.85rem;color:rgba(243,234,217,.45);font-style:italic;padding:6px 0;}
 
   .field{margin-bottom:14px;}
@@ -221,11 +233,13 @@
   .footer-admin:hover{color:var(--gold);}
 
   .float-wa{
-    position:fixed;bottom:22px;right:22px;z-index:900;width:60px;height:60px;border-radius:50%;
+    position:fixed;bottom:calc(22px + env(safe-area-inset-bottom));right:18px;z-index:900;width:56px;height:56px;border-radius:50%;
     background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(0,0,0,.4);
-    animation:pulse 2.4s infinite;
+    animation:pulse 2.4s infinite;transition:opacity .25s, transform .25s;
   }
-  .float-wa svg{width:32px;height:32px;}
+  /* mientras se arma la cita el botón tapaba el CTA y el contador: se esconde */
+  .float-wa.oculto{opacity:0;transform:scale(.5);pointer-events:none;}
+  .float-wa svg{width:30px;height:30px;}
   @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,.5)}70%{box-shadow:0 0 0 16px rgba(37,211,102,0)}100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}}
   .skeleton{opacity:.35;font-style:italic;font-size:.9rem;text-align:center;padding:20px;}
 </style>
@@ -407,8 +421,26 @@
 
   /* nav móvil */
   const burger = $('burgerBtn'), navLinks = $('navLinks');
-  burger.addEventListener('click', () => navLinks.classList.toggle('open'));
-  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+  const menu = (abrir) => {
+    navLinks.classList.toggle('open', abrir);
+    burger.textContent = abrir ? '✕' : '☰';
+    burger.setAttribute('aria-expanded', abrir ? 'true' : 'false');
+  };
+  burger.addEventListener('click', (e) => { e.stopPropagation(); menu(!navLinks.classList.contains('open')); });
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu(false)));
+  document.addEventListener('click', (e) => {
+    if (navLinks.classList.contains('open') && !navLinks.contains(e.target)) menu(false);
+  });
+
+  /* el botón flotante de WhatsApp se quita mientras se ve el formulario:
+     tapaba el botón de apartar y el contador del anticipo */
+  const fab = $('floatWa'), zonaCita = $('reservar');
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(
+      ([e]) => fab.classList.toggle('oculto', e.isIntersecting),
+      { rootMargin: '-25% 0px -25% 0px' }
+    ).observe(zonaCita);
+  }
 
   const api = async (url, opts) => {
     const r = await fetch(url, opts);
